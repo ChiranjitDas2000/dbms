@@ -1,0 +1,85 @@
+ CREATE TABLE Musician(SSN varchar(20) primary key, Name varchar(100), Address varchar(100), Phoneno integer(100));
+
+ CREATE TABLE Instrument(IID varchar(10) primary key, IName varchar(30), IKey varchar(10));
+
+ CREATE TABLE Album(AID varchar(10) primary key,AName varchar(10),Format varchar(20),CRD date, SSN varchar(20),song_no varchar(20),foreign key(SSN) references Musician(SSN));
+
+ CREATE TABLE Songs(SID varchar(10) primary key,Title varchar(100),Author varchar(100), AID varchar(10),foreign key(AID) references Album(AID));
+
+ CREATE TABLE Plays(SSN varchar(20),IID varchar(10), primary key(SSN,IID), foreign key(SSN) references Musician(SSN),foreign key(IID) references Instrument(IID));
+
+ CREATE TABLE Performs(SSN varchar(20),SID varchar(10), primary key(SSN,SID), foreign key(SSN) references Musician(SSN),foreign key(SID) references Songs(SID));
+
+
+INSERT INTO Musician VALUES("01","Sid Sriram","Chennai",9987654);
+INSERT INTO Musician VALUES("02","Aniruddh ","Hydrabad",9987654);
+INSERT INTO Musician VALUES("03","Raghav Chaitanya","Bangalore",9987654);
+INSERT INTO Musician VALUES("04","Raghu Dixit","Mumbai",9987654);
+INSERT INTO Musician VALUES("05","KK ","Kolkata",9987654);
+INSERT INTO Musician VALUES("06"," Sonu Nigam","Pune",9987654);
+INSERT INTO Musician VALUES("07","Arijit Singh ","uttapradesh",9987654);
+INSERT INTO Musician VALUES("08","Jubin ","Madhyaparadesh",9987654);
+INSERT INTO Musician VALUES("09","Shreya","Delhi",9987654);
+INSERT INTO Musician VALUES("10","Shaan","mizoram",9987654);
+
+
+INSERT INTO Instrument VALUES("1","Guitar",001);
+INSERT INTO Instrument VALUES("2","Sitar",010);
+INSERT INTO Instrument VALUES("3","Harmonium",011);
+INSERT INTO Instrument VALUES("4","Flute",012);
+INSERT INTO Instrument VALUES("5","Sitar",002);
+INSERT INTO Instrument VALUES("6","Flute",003);
+INSERT INTO Instrument VALUES("7","Violin",04);
+INSERT INTO Instrument VALUES("8","Tabla",005);
+INSERT INTO Instrument VALUES("9","Piano",006);
+INSERT INTO Instrument VALUES("10","Harmonium",007);
+INSERT INTO Instrument VALUES("11","Piano",008);
+INSERT INTO Instrument VALUES("12","Tabla",009);
+
+insert into Songs values(01,"Inkem","cid","01");
+insert into Songs values(02,"Thalapathy","Ani","02");
+insert into Songs values(03,"Tukda","Raghav","03");
+insert into Songs values(04,"Just maat mathali ","Raghu","04");
+insert into Songs values(05,"RHTDM","kk","05");
+
+
+
+
+
+
+INSERT INTO Album VALUES("01","Brahmastra","Youtube",'2022-07-09 ',"01","3");
+INSERT INTO Album VALUES("02","Beast","Youtube",'2022-06-03 ',"02","5");
+INSERT INTO Album VALUES("03","Thappad","Youtube",'2020-06-03',"03","2");
+INSERT INTO Album VALUES("04","IndieMusic","CD",'2019-05-01',"04","4");
+INSERT INTO Album VALUES("05","RHTDM","CD",'2003-01-22',"05","2");
+
+
+INSERT INTO Plays Values("01","1");
+INSERT INTO Plays Values("02","2");
+INSERT INTO Plays Values("03","3");
+INSERT INTO Plays Values("04","4");
+INSERT INTO Plays Values("05","5");
+INSERT INTO Plays Values("06","6");
+INSERT INTO Plays Values("07","7");
+INSERT INTO Plays Values("08","10");
+INSERT INTO Plays Values("09","11");
+INSERT INTO Plays Values("10","12");
+
+INSERT INTO Performs Values("01","1");
+INSERT INTO Performs Values("02","2");
+INSERT INTO Performs Values("03","3");
+INSERT INTO Performs Values("04","4");
+INSERT INTO Performs Values("05","5");
+
+1.	SELECT M.Name as Musician_name,S.Title as Song_title,A.AName as Album_name from Musician M,Songs S,Album A,Performs P  where M.SSN=P.SSN and P.SID=S.SID and S.AID=A.AID;
+
+2.	SELECT M.Name as Musician_name from Musician M where M.SSN Not In (SELECT M.SSN from Musician M,Album A where M.SSN=A.SSN);
+
+3.	SELECT SID,Author,Title from Songs where SID in (SELECT SID from Performs group by SID having count(SID>3));
+
+4.	select I.IName,count(P.IID),count(P.IID)/(select count(*)from Musician) as Average from Instrument I,Plays P where I.IID=P.IID group by P.IID having count(P.IID);
+
+5.	select distinct(A.AName),song_no from Album A,Plays P,Instrument I,Musician M where song_no>(select avg(song_no) from Album)and P.IID=I.IID and P.SSN in
+	(select SSN from Album where I.IName in ('Flute','Guitar'));
+
+6.	select M.* from Musician M,Plays P where M.SSN=P.SSN group by M.SSN having count(P.SSN)>=1;
