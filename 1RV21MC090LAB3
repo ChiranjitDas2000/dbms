@@ -1,0 +1,97 @@
+mysql> select * from distributor;
++-----+-----------+-----------+------------+
+| TIN | D_NAME    | D_ADDRESS | CONTACT    |
++-----+-----------+-----------+------------+
+| 101 | Amit      | Banglore  | 9546862364 |
+| 102 | Aishwarya | Mysore    | 9740823872 |
+| 103 | Anusha    | Pune      | 8762190765 |
+| 104 | Vaishnavi | Delhi     | 9900056741 |
+| 105 | Pratiksha | Hubbali   | 8246862371 |
+| 106 | Arjun     | Tumkur    |  897654732 |
+| 107 | Madhu     | Davangere | 8890765431 |
+| 108 | Rishabh   | Coorg     |  879765432 |
++-----+-----------+-----------+------------+
+
+mysql> select * from user;
++------+------+---------+-----------+
+| U_ID | H_no | U_NAME  | U_ADDRESS |
++------+------+---------+-----------+
+|   10 | 151  | sanjana | Banglore  |
+|   11 | 152  | krupa   | Belagavi  |
+|   12 | 153  | richa   | Kolkata   |
+|   13 | 154  | Mayank  | Delhi     |
+|   14 | 155  | Aditya  | Dharwad   |
++------+------+---------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+mysql> select * from panel;
++----+----------------+----------+----------+-------+
+| PV | TYPE           | CAPACITY | WARRENTY | PRICE |
++----+----------------+----------+----------+-------+
+|  1 | Monocrytlline  | 1        |       15 | 15000 |
+|  2 | Monocrytlline  | 3        |       10 | 25000 |
+|  3 | Polycystalline | 2        |       25 | 15000 |
+|  4 | Monocrytlline  | 5        |        7 | 30000 |
+|  5 | Polycystalline | 6        |        9 | 15000 |
++----+----------------+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from purchased;
++----+------+
+| PV | U_ID |
++----+------+
+|  1 |   10 |
+|  2 |   11 |
+|  3 |   12 |
+|  4 |   13 |
+|  5 |   14 |
++----+------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from sold;
++----+-----+
+| PV | TIN |
++----+-----+
+|  1 | 101 |
+|  2 | 102 |
+|  3 | 103 |
+|  4 | 104 |
+|  5 | 105 |
++----+-----+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from installed;
++------------+--------+----------------+----+------+-----+
+| DATE1      | IPRICE | I_TYPE         | PV | U_ID | TIN |
++------------+--------+----------------+----+------+-----+
+| 2018-07-11 |  40000 | Commercial     |  1 |   10 | 101 |
+| 2019-02-23 |  50000 | Commercial     |  2 |   11 | 102 |
+| 2020-03-01 |  20000 | non-Commercial |  3 |   12 | 103 |
+| 2021-01-22 |  60000 | non-Commercial |  4 |   13 | 104 |
+| 2021-07-26 |  70000 | Commercial     |  5 |   14 | 105 |
++------------+--------+----------------+----+------+-----+
+
+
+
+
+
+mysql> desc distributor;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| TIN       | int(20)     | NO   | PRI | NULL    |       |
+| D_NAME    | varchar(40) | YES  |     | NULL    |       |
+| D_ADDRESS | varchar(40) | YES  |     | NULL    |       |
+| CONTACT   | bigint(12)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+

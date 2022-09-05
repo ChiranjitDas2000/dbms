@@ -1,0 +1,281 @@
+mysql> CREATE TABLE Docter(DSSN varchar(10) primary key,name varchar(100),spec varchar(100), YOE varchar(50));
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> CREATE TABLE Patient(PSSN varchar(10) primary key,Pname varchar(100),Padd varchar(100),Page int(4));
+Query OK, 0 rows affected (0.44 sec)
+
+
+mysql> CREATE TABLE Drugs(Tname varchar(100) primary key,formula varchar(50));
+Query OK, 0 rows affected (0.22 sec)
+
+
+mysql> CREATE TABLE Pharmacompanyt(pcname varchar(100) primary key,pcadd varchar(100),pcphoneno int(11));
+
+Query OK, 0 rows affected (0.25 sec)
+
+
+mysql> CREATE TABLE Pharmacy(phname varchar(100) primary key,phadd varchar(100),phphoneno int(11));
+Query OK, 0 rows affected (0.23 sec)
+
+
+
+mysql> CREATE TABLE checks(DSSN varchar(10),PSSN varchar(10),primary key(DSSN,PSSN),foreign key(DSSN) references Docter(DSSN),foreign key(PSSN) references Patient(PSSN));
+Query OK, 0 rows affected (0.61 sec)
+
+
+mysql> CREATE TABLE sold_by(Tname varchar(100),phname varchar(100),primary key(Tname,phname),foreign key(Tname) references Drugs(Tname),foreig
+n key(phname) references Pharmacy(phname));
+Query OK, 0 rows affected (0.27 sec)
+
+
+mysql> create table prescribe(DSSN varchar(10),PSSN varchar(10),Tname varchar(100),Pres_date date,quantity varchar(20), primary key(DSSN,PSSN,Tname),foreign key(DSSN) references Docter(DSSN),foreign key(PSSN) references Patient(PSSN),foreign key(Tname) references Drugs(Tname));
+Query OK, 0 rows affected (0.28 sec)
+
+
+
+
+
+mysql> show tables;
++---------------------------+
+| Tables_in_1RV21MC090_exe2 |
++---------------------------+
+| Doctor                    |
+| Drugs                     |
+| Patient                   |
+| Pharmacompany             |
+| Pharmacy                  |
+| checks                    |
+| contract_with             |
+| prescribe                 |
+| sold_by   
+
+
+mysql> select * from Doctor;
++------+-----------------+-------------------+------+
+| DSSN | name            | spec              | YOE  |
++------+-----------------+-------------------+------+
+| 01   | Dr.Sanjana      | Cardiology        | 3    |
+| 02   | Dr.Nehal        | Neurology         | 5    |
+| 03   | Dr.Richa        | Opthomology       | 3    |
+| 04   | Dr.Krupa        | Opthomology       | 5    |
+| 05   | Dr.Divya        | Opthomology       | 2    |
+| 06   | Dr.Sai Nirupama | Gynaecology       | 11   |
+| 07   | Dr.Vybhav       | General Physician | 1    |
+| 08   | Dr.Amruta       | Gastroentrologist | 7    |
+| 09   | Dr.Gururaj      | Orthodontist      | 12   |
+| 10   | Dr.Geetanjali   | Orthodontist      | 1    |
++------+-----------------+-------------------+------+
+
+
+mysql> select * from Patient;
++------+-----------+-----------+------+
+| PSSN | Pname     | Padd      | Page |
++------+-----------+-----------+------+
+| 1    | Anushka   | Belagavi  |   22 |
+| 10   | kavya     | Bengaluru |   17 |
+| 2    | jay       | Bengaluru |   24 |
+| 3    | Shireesha | Bengaluru |   22 |
+| 4    | Shimpy    | Bihar     |   21 |
+| 5    | Sanskrati | jhansi    |   23 |
+| 6    | Aditya    | Belagavi  |   29 |
+| 7    | Supriya   | Belagavi  |   29 |
+| 8    | anusha    | Bengaluru |   18 |
+| 9    | diksha    | Bengaluru |   27 |
++------+-----------+-----------+------+
+10 rows in set (0.00 sec)
+
+
+mysql> select * from Drugs;
++--------------+-------------------------+
+| Tname        | formula                 |
++--------------+-------------------------+
+| aciloc       | acidity                 |
+| allergia     | anti-allergic           |
+| blink        | Carboxymethyl cellulose |
+| cheston-cold | allergy                 |
+| crocin       | headache                |
+| dolo650      | paracetemol             |
+| gastro7      | gastric                 |
++--------------+-------------------------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from Pharmacy;
++------------------+-----------+-----------+
+| phname           | phadd     | phphoneno |
++------------------+-----------+-----------+
+| Ajanta Medicals  | Hubli     |  99844531 |
+| Aparna  Medicals | RR Nagar  | 976444531 |
+| Apollo           | Bengaluru |  98244531 |
+| ashok Medicals   | Tumkur    | 789844531 |
+| Medplus          | Belagavi  |  76844531 |
+| Pharmeasy        | hyderabad |  86844531 |
++------------------+-----------+-----------+
+
+
+
+ select * from Pharmacompany;
++------------+-----------+-----------+
+| pcname     | pcadd     | pcphoneno |
++------------+-----------+-----------+
+| Abbott     | Bengaluru | 879654322 |
+| Biocon     | hyderabad | 987654231 |
+| Cipla      | Mumbai    | 987355431 |
+| Dr.Reddy's | bengaluru | 908765433 |
+| glenmark   | New Delhi |  93234664 |
+| Mankind    | Kolkata   |  98235431 |
+| Omnicare   | Dharwad   |  83464322 |
+| Piramal    | Mumbai    | 926784554 |
+| SunPharma  | Bengaluru | 888964322 |
+| Vicks      | Bengaluru |  98345431 |
+| Zydus      | Delhi     |  98725431 |
++------------+-----------+-----------+
+11 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1*
+select p.* from patient p ,doctor d,treat t 
+where p.p_ssn=t.p_ssn 
+and d.dssn=t.dssn 
+and p.age=20 
+and d.speciality="opthalmologist";
+
+
+2*
+select D.*,count(P.dssn) from Doctor D,Prescribe P 
+where D.dssn=P.dssn 
+and year(P.date)="2013" 
+group by P.dssn 
+having count(P.dssn)>=2;
+
+3*
+select *from doctor 
+where  experience in 
+(select max(exp)from doctor);
+
+4*
+select distinct d.* from drug d,pharmacy p,sell s 
+where p.phname=s.phname 
+and s.tradename=d.tradename;
+
+
+5*
+select d.*,count(pname) from drug d 
+group by pname
+having count(pname);
+
+
+6*
+select p.*,d.tradename from pharmacy p,sell s,drug d
+where s.phname=p.phname 
+and d.tradename=s.tradename;
+
+
+
+
+select P.* from Patient P,Doctor D,checks C where P.PSSN=C.PSSN and D.DSSN=C.DSSN and P.Page>=20 and D.spec="opthomology";
++------+-----------+-----------+------+
+| PSSN | Pname     | Padd      | Page |
++------+-----------+-----------+------+
+| 2    | jay       | Bengaluru |   24 |
+| 3    | Shireesha | Bengaluru |   22 |
+| 4    | Shimpy    | Bihar     |   21 |
++------+-----------+-----------+------+
+3 rows in set (0.53 sec)
+
+
+CREATE TABLE `contract` (   `Pt_name` varchar(25) NOT NULL,   `Ph_name` varchar(25) NOT NULL,   `Trade_name` varchar(25) NOT NULL,   `s_date` date DEFAULT NULL,   `e_date` date DEFAULT NULL,   `supervisor` varchar(20) DEFAULT NULL,   `text` varchar(20) DEFAULT NULL,   PRIMARY
+KEY (`Pt_name`,`Ph_name`,`Trade_name`),   KEY `Ph_name` (`Ph_name`),   KEY `Trade_name` (`Trade_name`),   CONSTRAINT `contract_ibfk_1` FOREIGN KEY (`Pt_name`) REFERENCES `Pharmaceutical` (`Pt_name`),   CONSTRAINT `contract_ibfk_2` FOREIGN KEY (`Ph_name`) REFERENCES `Pharmacy` (`Ph_name`),   CONSTRAINT `contract_ibfk_3` FOREIGN KEY (`Trade_name`) REFERENCES `Drug` (`Trade_name`);
+
+
+
+mysql> select * from Doctor  where  YOE in  (select max(YOE)from Doctor);
++------+-----------+-------------------+------+
+| DSSN | name      | spec              | YOE  |
++------+-----------+-------------------+------+
+| 08   | Dr.Amruta | Gastroentrologist | 7    |
++------+-----------+-------------------+------+
+1 row in set (0.00 sec)
+
+
+
+
+mysql> select distinct D.* from Drugs D,Pharmacy P,sold_by S where P.phname=S.phname and S.Tname=D.Tname;
++-------------+-------------------------+
+| Tname       | formula                 |
++-------------+-------------------------+
+| aciloc      | acidity                 |
+| allergia    | anti-allergic           |
+| azitromycin | antibiotic              |
+| blink       | Carboxymethyl cellulose |
+| dolo650     | paracetemol             |
+| Dexorange   | haemoglobin             |
+| crocin      | headache                |
++-------------+-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select D.*,count(Tname)from Drugs D group by Tname having count(Tname);
++--------------+-------------------------+--------------+
+| Tname        | formula                 | count(Tname) |
++--------------+-------------------------+--------------+
+| Acidity      | Retinoid                |            1 |
+| aciloc       | acidity                 |            1 |
+| allergia     | anti-allergic           |            1 |
+| azitromycin  | antibiotic              |            1 |
+| blink        | Carboxymethyl cellulose |            1 |
+| buscogast    | gastric                 |            1 |
+| cetirizine   | zyrtec allergy          |            1 |
+| cheston-cold | allergy                 |            1 |
+| crocin       | headache                |            1 |
+| Dexorange    | haemoglobin             |            1 |
+| dolo650      | paracetemol             |            1 |
+| gastro7      | gastric                 |            1 |
++--------------+-------------------------+--------------+
+12 rows in set (0.00 sec)
+
+
+mysql> select P.*,D.Tname from Pharmacy P,sold_by S,Drugs D where S.phname=P.phname and D.Tname=S.Tname;
++------------------+-----------+-----------+-------------+
+| phname           | phadd     | phphoneno | Tname       |
++------------------+-----------+-----------+-------------+
+| Ajanta Medicals  | Hubli     |  99844531 | aciloc      |
+| Ajanta Medicals  | Hubli     |  99844531 | allergia    |
+| Apollo           | Bengaluru |  98244531 | azitromycin |
+| Apollo           | Bengaluru |  98244531 | blink       |
+| Apollo           | Bengaluru |  98244531 | dolo650     |
+| Sai Pharmacy     | Mumbai    | 876438822 | Dexorange   |
+| Sanjana Pharmacy | Mumbai    | 876438822 | crocin      |
++------------------+-----------+-----------+-------------+
+7 rows in set (0.00 sec)
+
+
+
+ select D.*,count(P.DSSN) from Doctor D,prescribe P where D.DSSN=P.DSSN and year(P.Pres_date)="2020" group by P.DSSN having count(P.DSSN)>=0;
++------+-----------------+-------------+------+---------------+
+| DSSN | name            | spec        | YOE  | count(P.DSSN) |
++------+-----------------+-------------+------+---------------+
+| 01   | Dr.Sanjana      | Cardiology  | 3    |             1 |
+| 05   | Dr.Divya        | Opthomology | 2    |             1 |
+| 06   | Dr.Sai Nirupama | Gynaecology | 5    |             1 |
++------+-----------------+-------------+------+---------------+
+
+
